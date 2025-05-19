@@ -25,7 +25,7 @@ RoleplayChainEnhancer 是一个代理服务，旨在解决大型语言模型（�
     *   `primary`: 用于生成思维链的“导演”LLM。
     *   `target`: 最终执行角色扮演的“演员”LLM (例如 V3 模型)。
     *   每个 LLM 可以配置 `provider`, `model`, `api_key`, `base_url` 以及其他可选参数（如 `temperature`, `top_p`）。
-*   **提示词 (Prompts)**: 配置用于指导 `primary` LLM 生成思维链的系统提示和用户提示部分。
+*   **提示词 (Prompts)**: 配置用于指导 `primary` LLM 生成思维链的系统提示和用户提示部分。此处我留空了，你需要填一个破限提示词。
 *   **LangSmith**: 启用/禁用 LangSmith 集成，并配置相关凭据和项目信息。
 
 请根据您的需求修改 `config.yml` 文件。特别是 `api_key` 需要您自行填写。
