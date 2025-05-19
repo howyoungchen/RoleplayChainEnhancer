@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+pydantic
+langchain
+langchain-openai
+openai
+python-dotenv
+PyYAML
+httpx
+pytest
+respx
+structlog
+tiktoken
+langsmith
+langchain-deepseek
+# deepseek-python-sdk # 如果 deepseek 提供官方 SDK，可以添加

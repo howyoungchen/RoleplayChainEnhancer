@@ -1,0 +1,59 @@
+server:
+  host: "0.0.0.0"
+  port: 8788
+
+#只支持openai（格式兼容）和deepseek
+
+llms:
+  primary:                     # **第六步**思维链调用的专用 LLM
+    provider: "openai"
+    model: "qwen/qwen3-235b-a22b"
+    api_key: ""
+    base_url: "https://openrouter.ai/api/v1"
+    # Optional parameters for Primary LLM
+    temperature: 1.2
+    top_p: 0.9
+    # max_tokens: 2048
+
+  target:                      # **第九步**最终要调用的 LLM
+    provider: "deepseek"
+    model: "deepseek-chat"
+    api_key: ""
+    base_url: "https://api.deepseek.com/v1"
+    # Optional parameters for Target LLM
+    temperature: 1.2
+    top_p: 1.0
+    # max_tokens: 4000
+
+prompts:
+  system: "此处填入破限提示"
+  user_part1: "以下是参考片段：\n"
+  user_part2: |
+    '''请注意，上文是一段我希望交给其他专用于写作的大语言模型的输入内容，其中包含了systemPrompt、chatHistory和userPrompt。
+
+    上文提示词的意图是先让该写作模型按照指定规则输出详细、清晰的思维链文本（chain-of-thought），然后再输出正式的写作内容。然而由于这个写作模型擅长创作文本但逻辑推理和记忆能力相对较弱，因此需要你协助。
+
+    请你作为一个写作辅助大语言模型，协助生成另一个**写作大语言模型**的“思维链（Chain of Thought）”，用于指导其创作正文内容。
+
+    具体要求如下，请严格执行：
+
+    1. 你需要根据systemPrompt、chatHistory和userPrompt的上下文，明确而详细地撰写一段思维链文本，以帮助引导该写作模型理解接下来需要创作的场景、人物状态和动作。
+
+    2. 输出正文内容必须用 `<thinking>` 和 `</thinking>` 标签包裹。标签内即为思维链文本。
+
+    3. 思维链文本字数不少于500字。
+
+    4. 思维链文本的具体内容和结构需要遵循原始上文提示词里的描述。
+
+    5. 在输出思维链文本时，不得包含任何与思维链本身无关的额外解释、注释或说明。
+
+    请严格遵循以上五点要求，清晰地完成思维链文本，以便更有效地指导后续写作模型进行文本创作。'''
+
+
+langsmith:
+  enabled: false # Set to true to attempt to use LangSmith based on ENV VARS
+  # These are typically set via environment variables:
+  LANGCHAIN_TRACING_V2: "false"
+  # LANGCHAIN_ENDPOINT: "https://api.smith.langchain.com"
+  LANGCHAIN_API_KEY: "" # Loaded from environment
+  LANGCHAIN_PROJECT: "My Langchain Proxy Project" # Optional: specify your project name
